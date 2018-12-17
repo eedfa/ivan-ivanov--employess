@@ -37,9 +37,11 @@ class App extends Component {
       }
       if (results !== null) {
         return results.map(element => {
-          return (
-            <tr className='boardList' ><th>{element.indexKey}</th> <th>{element.pair.index}</th> <th>{element.pair.maxVal}</th></tr>
-          )
+          if (element.pair !== undefined) {
+            return (
+              <tr className='boardList' ><th>{element.indexKey}</th> <th>{element.pair.index}</th> <th>{element.pair.maxVal}</th></tr>
+            )
+          }
         })
       }
     }

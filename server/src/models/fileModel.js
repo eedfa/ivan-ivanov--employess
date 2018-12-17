@@ -3,7 +3,7 @@ const overlapingDays = (date1start, date1end, date2start, date2end) => {
   if (date1end < date2start) {
     return 0
   }
-  if (date1end < date2end) {
+  if (date1end > date2end) {
     return (date1end - date2start)
   } else {
     return (date2end - date1start)
@@ -15,11 +15,13 @@ const parseData = (data) => {
   let orderderTimeArray = {}
   let returnTable = []
   data = data.split('\n')
+
   data.map(element => {
     element = element.split(',')
 
     if (!checkedEmp.includes(parseInt(element[0]))) {
       checkedEmp.push(parseInt(element[0]))
+
       let currentEmp = parseInt(element[0])
       let workedProject = []
       data.map(element => {
@@ -33,6 +35,7 @@ const parseData = (data) => {
           })
         }
       })
+
       workedProject.map((element) => {
         data.map((entry) => {
           entry = entry.split(',')
@@ -53,7 +56,8 @@ const parseData = (data) => {
           if (empId === parseInt(0)) {
             return
           }
-          if (projectId === element.projectId) {
+
+          if (projectId === parseInt(element.projectId)) {
             if (element.startDate > new Date(entry[2])) {
               days = overlapingDays(element.startDate, element.endDate, new Date(entry[2]), new Date(entry[3])) / (1000 * 3600 * 24)
 
@@ -100,6 +104,7 @@ const parseData = (data) => {
       })
     }
   })
+
   Object.keys(timeArray).map(function (key, index) {
     let maxVal = 0
     let indexKey = 0
@@ -110,11 +115,12 @@ const parseData = (data) => {
       }
     })
     orderderTimeArray[key] = {
-      maxVal: maxVal,
+      maxVal: Math.floor(maxVal),
       index: indexKey
     }
   })
-  while (returnTable.length < Object.keys(orderderTimeArray).length) {
+  let initLen = Object.keys(orderderTimeArray).length
+  while (returnTable.length < initLen) {
     let maxVal = 0
     let indexKey = 0
     Object.keys(orderderTimeArray).map(function (key, index) {
@@ -126,7 +132,9 @@ const parseData = (data) => {
 
     returnTable.push({ indexKey: indexKey, pair: orderderTimeArray[indexKey] })
     delete orderderTimeArray[indexKey]
+    console.log(orderderTimeArray)
   }
+
   return JSON.stringify(returnTable)
 }
 let returnJson = ''
