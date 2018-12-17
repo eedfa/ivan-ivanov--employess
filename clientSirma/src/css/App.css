@@ -1,0 +1,26 @@
+.tableMain{
+  color:#b33300;
+  margin-left: auto;
+  margin-right: auto;
+}
+.formMain{
+  color:#b33300;
+  width: 50%;
+  transform: translateX(25%);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.main{
+  padding:0;
+  margin:0;
+
+  top:0;
+  left:0;
+
+  width: 100%;
+  height: 100%;
+  position:fixed;
+  background-color: #5ac9f5;
+
+}
