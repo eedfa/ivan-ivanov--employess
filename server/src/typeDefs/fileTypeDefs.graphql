@@ -1,0 +1,10 @@
+  scalar Upload
+  type Mutation{
+    sendFile(
+      file: Upload
+    ): String
+
+  }
+  type Query {
+  getResults: String
+}
