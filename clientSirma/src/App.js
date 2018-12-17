@@ -29,8 +29,12 @@ class App extends Component {
   }
   loadData () {
     if (!this.props.getResult.loading) {
-      let results = JSON.parse(this.props.getResult.getResults)
-
+      let results = null
+      try {
+        results = JSON.parse(this.props.getResult.getResults)
+      } catch (error) {
+        return (<div className='errorMsg'>no connection to the server </div>)
+      }
       if (results !== null) {
         return results.map(element => {
           return (
